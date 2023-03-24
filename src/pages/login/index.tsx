@@ -3,6 +3,7 @@ import {apiPost, endpoints} from '@/api';
 import {useRequest, useSetState} from 'ahooks';
 import {useEffect, useMemo} from 'react';
 import {validateEmail, validatePassword} from '@/defaults';
+import {history} from 'umi';
 
 interface LoginPayload
 {
@@ -29,6 +30,11 @@ export default () =>
         if (data)
         {
             console.log(data);
+            if (data.token)
+            {
+                localStorage.setItem('token', data.token);
+                history.push('/');
+            }
         }
     }, [data]);
 
