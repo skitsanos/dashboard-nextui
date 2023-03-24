@@ -1,6 +1,6 @@
 export default () =>
 {
     return <div className={'footer'}>
-        Footer
+        For demonstration purposes only. Copyright &copy; 2023 by Skitsanos.com
     </div>;
 };
