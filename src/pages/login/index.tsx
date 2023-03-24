@@ -21,7 +21,7 @@ export default () =>
         data,
         loading,
         error,
-        run
+        run: doLogin
     } = useRequest((payload: LoginPayload) => apiPost('/login', payload), {manual: true});
 
     useEffect(() =>
@@ -40,12 +40,12 @@ export default () =>
         }
     }, [error]);
 
-    const {value, reset, bindings} = useInput('');
+    const {value: valueEmail, resetEmail, bindingsEmail} = useInput('');
     const {value: valuePassword, reset: resetPassword, bindings: bindingsPassword} = useInput('');
 
     const helperEmailValidation = useMemo((): Record<string, string> =>
     {
-        if (!value)
+        if (!valueEmail)
         {
             return {
                 text: '',
@@ -53,7 +53,7 @@ export default () =>
             };
         }
 
-        const isValid = validateEmail(value);
+        const isValid = validateEmail(valueEmail);
 
         setValidForm({validEmail: Array.isArray(isValid)});
 
@@ -61,7 +61,7 @@ export default () =>
             text: isValid ? '' : 'Enter a valid email',
             color: isValid ? 'success' : 'error'
         };
-    }, [value]);
+    }, [valueEmail]);
 
     const helperPasswordValidation = useMemo((): Record<string, string> =>
     {
@@ -86,6 +86,13 @@ export default () =>
     const handleLogin = () =>
     {
         console.log(validForm);
+
+        console.log(valueEmail);
+        console.log(valuePassword);
+
+        // doLogin({
+        //     username: value
+        // });
     };
 
     return <>
@@ -100,9 +107,9 @@ export default () =>
 
                 <Spacer y={1}/>
 
-                <Input {...bindings}
+                <Input {...bindingsEmail}
                        clearable={true}
-                       onClearClick={reset}
+                       onClearClick={resetEmail}
                        status={helperEmailValidation.color}
                        color={helperEmailValidation.color}
                        helperColor={helperEmailValidation.color}
