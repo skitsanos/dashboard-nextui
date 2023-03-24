@@ -1,0 +1,25 @@
+{
+  "name": "dashboard-nextui",
+  "version": "1.0.0",
+  "repository": "git@github.com:skitsanos/dashboard-nextui.git",
+  "author": "skitsanos <info@skitsanos.com>",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "umi setup",
+    "start": "umi dev",
+    "build": "umi build",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix src",
+    "test": "umi test"
+  },
+  "dependencies": {
+    "@nextui-org/react": "^1.0.0-beta.12",
+    "ahooks": "^3.7.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "umi": "^4.0.63",
+    "umi-request": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28"
+  }
+}
