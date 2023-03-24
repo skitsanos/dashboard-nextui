@@ -3,7 +3,8 @@ import request, {RequestOptionsInit} from 'umi-request';
 const url = '/api';
 
 export const endpoints = {
-    auth: `${url}/auth`
+    login: `${url}/auth/login`,
+    users: `${url}/users`
 };
 
 const authorizationHeader = () =>
@@ -36,7 +37,7 @@ request.interceptors.response.use(response =>
 {
     //const data = await response.clone().json();
     //skip 403s from login service itself
-    if ((response.status === 403 || response.status === 401) && !response.url.endsWith(endpoints.auth))
+    if ((response.status === 403 || response.status === 401) && !response.url.endsWith(endpoints.login))
     {
         location.href = '/logout';
     }

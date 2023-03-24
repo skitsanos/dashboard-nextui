@@ -1,19 +1,33 @@
 import {Outlet} from 'umi';
 import {NextUIProvider} from '@nextui-org/react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import UserProfileButton from '@/components/UserProfileButton';
 
 const hasNoLayout = [
-    '/login'
+    '/login',
+    '/reset-password'
 ];
 
 export default () =>
 {
     return <NextUIProvider>
-
         {hasNoLayout.includes(location.pathname)
-            ? <Outlet/>
-            : <>
+            ? <div className={'login-page'}>
                 <Outlet/>
-                #Footer
+            </div>
+            : <>
+                <div className={'app'}>
+                    <Header title={'DEMO//APP'}
+                            isAuthorized={true}
+                            extra={<><UserProfileButton name={'Demo User'}/></>}/>
+
+                    <div className={'workspace'}>
+                        <Outlet/>
+                    </div>
+
+                    <Footer/>
+                </div>
             </>}
     </NextUIProvider>;
 };

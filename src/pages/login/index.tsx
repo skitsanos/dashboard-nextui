@@ -1,5 +1,5 @@
-import {Button, Card, Input, Link, Row, Spacer, Text, useInput} from '@nextui-org/react';
-import {apiPost} from '@/api';
+import {Button, Card, Input, Link, Row, Spacer, Text, useInput, Container} from '@nextui-org/react';
+import {apiPost, endpoints} from '@/api';
 import {useRequest, useSetState} from 'ahooks';
 import {useEffect, useMemo} from 'react';
 import {validateEmail, validatePassword} from '@/defaults';
@@ -22,7 +22,7 @@ export default () =>
         loading,
         error,
         run: doLogin
-    } = useRequest((payload: LoginPayload) => apiPost('/login', payload), {manual: true});
+    } = useRequest((payload: LoginPayload) => apiPost(endpoints.login, {data: payload}), {manual: true});
 
     useEffect(() =>
     {
@@ -40,7 +40,7 @@ export default () =>
         }
     }, [error]);
 
-    const {value: valueEmail, resetEmail, bindingsEmail} = useInput('');
+    const {value: valueEmail, reset: resetEmail, bindings: bindingsEmail} = useInput('');
     const {value: valuePassword, reset: resetPassword, bindings: bindingsPassword} = useInput('');
 
     const helperEmailValidation = useMemo((): Record<string, string> =>
@@ -85,18 +85,15 @@ export default () =>
 
     const handleLogin = () =>
     {
-        console.log(validForm);
-
-        console.log(valueEmail);
         console.log(valuePassword);
-
-        // doLogin({
-        //     username: value
-        // });
+        doLogin({
+            username: valueEmail,
+            password: valuePassword
+        });
     };
 
-    return <>
-        <Card className={'login'}>
+    return <Container xs={true}>
+        <Card className={'login-form'}>
             <Card.Body autoCapitalize={'off'}
                        autoCorrect={'off'}>
                 <Text h2={true}>Login</Text>
@@ -147,5 +144,5 @@ export default () =>
                 </Row>
             </Card.Footer>
         </Card>
-    </>;
+    </Container>;
 };
